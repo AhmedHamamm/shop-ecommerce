@@ -14,12 +14,16 @@
   },
   "dependencies": {
     "@apollo/client": "^3.11.8",
+    "@vee-validate/rules": "^4.13.2",
     "bootstrap": "^5.3.3",
     "boxicons": "^2.1.4",
     "graphql": "^16.9.0",
+    "pinia": "^2.2.2",
     "pug": "^3.0.3",
     "pug-plain-loader": "^1.1.0",
     "swiper": "^11.1.14",
+    "v-lazy-image": "^2.1.1",
+    "vee-validate": "^4.13.2",
     "vue": "^3.4.29",
     "vue-router": "^4.3.3"
   },
