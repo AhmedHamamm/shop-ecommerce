@@ -5,7 +5,7 @@
       .col-lg-6.col-md-12.mt-5.align-content-around
         h1.display-4.fw-bold.mb-4 {{ title }}
         p.lead.mb-4 {{ description }}
-        BlackBtn.mb-5.d-lg-inline-block.d-sm-block(:buttonText="ctaText")
+        BlackBtn.mb-5.px-5.d-lg-inline-block.d-sm-block(:buttonText="ctaText")
         .row.text-center
           .col-lg-4.col-sm-6.mb-3.mb-lg-0
             h2.display-6.fw-bold {{ stats.brands }}+
@@ -46,5 +46,13 @@ const aspectRatio = '1:1'
 <style scoped lang="scss">
 .hero-section {
   background-color: #f2f0f1;
+}
+
+@media (max-width: 768px) {
+  .hero-section {
+    button {
+      width: 100%;
+    }
+  }
 }
 </style>
