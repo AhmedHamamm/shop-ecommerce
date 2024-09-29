@@ -4,10 +4,10 @@
     .summary-item
       span Subtotal
       span ${{ subtotal }}
-    .summary-item
+    .summary-item(v-if="subtotal > 0")
       span Discount (-20%)
       span.discount -${{ discount }}
-    .summary-item
+    .summary-item(v-if="subtotal > 0")
       span Delivery Fee
       span ${{ deliveryFee }}
     .summary-item.total
@@ -20,24 +20,29 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed } from 'vue'
-import BlackBtn from '@/components/common/BlackBtn.vue'
-import { useCartStore } from '@/components/cart/CartStore.vue'
+import { ref, computed } from "vue";
+import BlackBtn from "@/components/common/BlackBtn.vue";
+import { useCartStore } from "@/components/cart/CartStore.vue";
 
-const cartStore = useCartStore()
+const cartStore = useCartStore();
 
-const deliveryFee = ref(15)
-const discountPercentage = 0.2
+const baseDeliveryFee = 15;
+const discountPercentage = 0.2;
 
-const subtotal = computed(() => cartStore.totalPrice)
-const discount = computed(() => Math.round(subtotal.value * discountPercentage))
-const total = computed(() => subtotal.value - discount.value + deliveryFee.value)
+const subtotal = computed(() => cartStore.totalPrice);
+const discount = computed(() =>
+  Math.round(subtotal.value * discountPercentage)
+);
+const deliveryFee = computed(() => (subtotal.value > 0 ? baseDeliveryFee : 0));
+const total = computed(
+  () => subtotal.value - discount.value + deliveryFee.value
+);
 
-const promoCode = ref('')
+const promoCode = ref("");
 
 const applyPromoCode = () => {
-  console.log('Applying promo code:', promoCode.value)
-}
+  console.log("Applying promo code:", promoCode.value);
+};
 </script>
 
 <style scoped lang="scss">
