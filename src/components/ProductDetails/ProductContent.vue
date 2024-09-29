@@ -44,65 +44,69 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
-import BlackBtn from '@/components/common/BlackBtn.vue'
-import { useCartStore } from '@/components/cart/CartStore.vue'
+import { ref } from "vue";
+import BlackBtn from "@/components/common/BlackBtn.vue";
+import { useCartStore } from "@/components/cart/CartStore.vue";
+import { useToast } from "vue-toast-notification";
 
 const props = defineProps<{
   product: {
-    id: number
-    name: string
-    rating: number
-    price: number
-    originalPrice: number
-    discount: string
-    description: string
-    colors: string[]
-    sizes: string[]
-    quantity: number
+    id: number;
+    name: string;
+    rating: number;
+    price: number;
+    originalPrice: number;
+    discount: string;
+    description: string;
+    colors: string[];
+    sizes: string[];
+    quantity: number;
     images: {
-      main: string
-      additional: string[]
-    }
-  }
-}>()
+      main: string;
+      additional: string[];
+    };
+  };
+}>();
 
-const selectedColor = ref(0)
-const selectedSize = ref('')
-const quantity = ref(1)
+const selectedColor = ref(0);
+const selectedSize = ref("");
+const quantity = ref(1);
 
-const cartStore = useCartStore()
+const cartStore = useCartStore();
+const toast = useToast({
+  position: "top-right",
+});
 
 const selectColor = (index: number) => {
-  selectedColor.value = index
-}
+  selectedColor.value = index;
+};
 
-const isColorSelected = (index: number) => selectedColor.value === index
+const isColorSelected = (index: number) => selectedColor.value === index;
 
 const selectSize = (size: string) => {
-  selectedSize.value = size
-}
+  selectedSize.value = size;
+};
 
 const decreaseQuantity = () => {
   if (quantity.value > 1) {
-    quantity.value--
+    quantity.value--;
   }
-}
+};
 
 const increaseQuantity = () => {
   if (quantity.value < props.product.quantity) {
-    quantity.value++
+    quantity.value++;
   }
-}
+};
 
 const addToCart = () => {
   if (selectedColor.value === -1) {
-    alert('Please select a color')
-    return
+    toast.error("Please select a color");
+    return;
   }
   if (!selectedSize.value) {
-    alert('Please select a size')
-    return
+    toast.error("Please select a size");
+    return;
   }
   const productToAdd = {
     ...props.product,
@@ -111,11 +115,11 @@ const addToCart = () => {
     quantity: quantity.value,
     images: props.product.images || [],
     size: selectedSize.value,
-    color: props.product.colors[selectedColor.value]
-  }
-  cartStore.addToCart(productToAdd)
-  alert('Product added to cart')
-}
+    color: props.product.colors[selectedColor.value],
+  };
+  cartStore.addToCart(productToAdd);
+  toast.success("Product added to cart");
+};
 
-const buttonText = ref('Add to Cart')
+const buttonText = ref("Add to Cart");
 </script>
