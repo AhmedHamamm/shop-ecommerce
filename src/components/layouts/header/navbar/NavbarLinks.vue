@@ -8,7 +8,6 @@ ul.navbar-nav.me-auto.mb-2.mb-lg-0
 import { ref } from 'vue'
 import { RouterLink } from 'vue-router'
 
-// Navbar links array
 const links = ref([
   { name: 'Shop', path: '/' },
   { name: 'On Sale', path: '/' },

@@ -28,24 +28,21 @@ import SearchForm from './SearchForm.vue'
 import NavbarLinks from './NavbarLinks.vue'
 import UserActions from './UserActions.vue'
 
-// Toggle navbar
 const isNavOpen = ref(false)
 const toggleNav = () => {
   isNavOpen.value = !isNavOpen.value
 }
 
-// Close navbar on window resize
 const handleResize = () => {
   if (window.innerWidth >= 992) {
     isNavOpen.value = false
   }
 }
 
-// Add event listener on window resize
 onMounted(() => {
   window.addEventListener('resize', handleResize)
 })
-// Remove event listener on window resize
+
 onBeforeUnmount(() => {
   window.removeEventListener('resize', handleResize)
 })
